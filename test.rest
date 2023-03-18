@@ -1,0 +1,13 @@
+GET http://localhost:5000/api/user/all HTTP/1.1
+
+###
+
+POST http://localhost:5000/api/user/create HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Name-1",
+    "email": "dfkdfk",
+    "password": "12345",
+    "phone": "23243430"
+}
