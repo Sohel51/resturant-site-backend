@@ -15,7 +15,7 @@ let users = [
     }
 ]
 
-// Create
+// Create User
 function createUser(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -33,22 +33,38 @@ function createUser(req, res, next) {
     )
 }
 
-// Read
+
+// Register User
+function registerUser(req, res, next) {
+    const {
+        name, email, phone, password
+    } = req.body;
+
+    users.push({
+        name, email, phone, password
+    })
+
+    return res.status (201).json(
+        users
+    )
+}
+
+// Read User Data
 function allUser(req, res, next) {
     res.json(users)
 }
 
-// Get
+// Get Users Data
 function getUser(req, res) {
     res.json('Get User')
 }
 
-// Update
+// Update User
 function updateUser(req, res) {
     res.json('Update User')
 }
 
-// Delete
+// Delete User
 function deleteUser(req, res) {
     res.json('Delete User')
 }
@@ -58,5 +74,6 @@ module.exports = {
     allUser,
     getUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    registerUser
 }

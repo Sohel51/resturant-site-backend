@@ -20,6 +20,8 @@ router.get('/all', userController.allUser)
 
 router.get('/get/:id', userController.getUser)
 
+router.post('/register', userController.registerUser)
+
 router.post('/update/:id', userController.updateUser)
 
 router.get('/delete/:id/:name', userController.deleteUser)
