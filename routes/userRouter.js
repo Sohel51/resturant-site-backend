@@ -18,12 +18,12 @@ router.post('/create',
 
 router.get('/all', userController.allUser)
 
-router.get('/get/:id', userController.getUser)
+router.get('/get/:email', userController.getUser)
 
 router.post('/register', userController.registerUser)
 
 router.post('/update/:id', userController.updateUser)
 
-router.get('/delete/:id/:name', userController.deleteUser)
+router.get('/delete/:email', userController.deleteUser)
 
 module.exports = router;

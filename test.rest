@@ -1,13 +1,34 @@
+/// GetAll User Data
 GET http://localhost:5000/api/user/all HTTP/1.1
 
-###
+### Create New User
 
 POST http://localhost:5000/api/user/create HTTP/1.1
 content-type: application/json
 
 {
     "name": "Name-1",
-    "email": "dfkdfk",
+    "email": "name@gmail.com",
     "password": "12345",
     "phone": "23243430"
 }
+
+### Find User By Email
+
+GET http://localhost:5000/api/user/get HTTP/1.1
+
+### Register A New User
+
+POST http://localhost:5000/api/user/register HTTP/1.1
+content-type: application/json
+
+{
+    "name": "New Register",
+    "email": "register@gmail.com",
+    "password": "123456",
+    "phone": "47349340"
+}
+
+### Delete User By Index
+
+GET http://localhost:5000/api/user/delete HTTP/1.1

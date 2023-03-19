@@ -15,13 +15,13 @@ let users = [
     }
 ]
 
-// Create User
+// Create User Using HTTP
 function createUser(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ errors: errors.array() });
     }
-    
+
     const {
         name, email, phone, password
     } = req.body;
@@ -34,7 +34,7 @@ function createUser(req, res, next) {
 }
 
 
-// Register User
+// Register User Using Frontend
 function registerUser(req, res, next) {
     const {
         name, email, phone, password
@@ -44,7 +44,7 @@ function registerUser(req, res, next) {
         name, email, phone, password
     })
 
-    return res.status (201).json(
+    return res.status(201).json(
         users
     )
 }
@@ -55,18 +55,25 @@ function allUser(req, res, next) {
 }
 
 // Get Users Data
-function getUser(req, res) {
-    res.json('Get User')
+function getUser(req, res, next) {
+    email = req.params.email;
+
+    let result = users.find(i => i.email === email);
+
+    return res.json(result).status(200);
 }
 
 // Update User
-function updateUser(req, res) {
+function updateUser(req, res, next) {
     res.json('Update User')
 }
 
 // Delete User
-function deleteUser(req, res) {
-    res.json('Delete User')
+function deleteUser(req, res, next) {
+    email = req.params.email;
+    let index = users.findIndex(i => i.email === email)
+    users.splice(index, 1)
+    return res.json(users).status(200);
 }
 
 module.exports = {
