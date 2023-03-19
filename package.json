@@ -15,7 +15,9 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-form-data": "^2.0.22",
-    "express-validator": "^6.15.0"
+    "express-validator": "^6.15.0",
+    "mongodb": "^5.1.0",
+    "mongoose": "^7.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.21"
