@@ -8,7 +8,7 @@ content-type: application/json
 
 {
     "username": "DB User-1",
-    "email": "user2@gmail.com",
+    "email": "user6@gmail.com",
     "password": "12345",
     "phone": "23243430"
 }
@@ -27,6 +27,16 @@ content-type: application/json
     "email": "register@gmail.com",
     "password": "123456",
     "phone": "47349340"
+}
+
+### Login User
+
+POST http://localhost:5000/api/user/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "user6@gmail.com",
+    "password": "12345"
 }
 
 ### Delete User By Index

@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const userModel = require('../model/userModel')
+const bcrypt = require('bcryptjs');
 
 let users = [
     {
@@ -27,11 +28,16 @@ async function createUser(req, res, next) {
         username, email, phone, password
     } = req.body;
 
+    let hashPassword = await bcrypt.hash(password, 8);
+
     let newUser = await new userModel({
-        username, email, phone, password
+        username,
+        email,
+        phone,
+        password: hashPassword
     }).save();
     res.status(201).json(
-        newUser
+        { newUser, hashPassword }
     )
 }
 
@@ -60,10 +66,29 @@ async function allUser(req, res, next) {
 // Get Users Data
 function getUser(req, res, next) {
     email = req.params.email;
-
     let result = users.find(i => i.email === email);
-
     return res.json(result).status(200);
+}
+
+// Login User
+async function loginUser(req, res, next) {
+    let { email, password } = req.body;
+    let user = await userModel.findOne({
+        email: email
+    });
+    
+    if (user) {
+        console.log(user);
+        let checkPass = await bcrypt.compare(password, user.password);
+        if (checkPass) {
+            return res.json(user).status(200);
+        } else {
+            return res.json("Password Can't Match").status(422);
+        }
+    } else {
+        return res.json("User not Found").status(404);
+    }
+
 }
 
 // Update User
@@ -85,5 +110,6 @@ module.exports = {
     getUser,
     updateUser,
     deleteUser,
-    registerUser
+    registerUser,
+    loginUser
 }
