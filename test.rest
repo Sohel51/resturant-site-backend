@@ -7,8 +7,8 @@ POST http://localhost:5000/api/user/create HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Name-1",
-    "email": "name@gmail.com",
+    "username": "DB User-1",
+    "email": "user2@gmail.com",
     "password": "12345",
     "phone": "23243430"
 }

@@ -1,40 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
+const mongoose = require('mongoose');
 // var cors = require('cors')
 // const formData = require("express-form-data");
-
-// MongoDB & Mongoose Connect
-const mongoose = require('mongoose');
-const ObjectId = require('mongodb').ObjectId;
-main().catch(err => console.log(err));
-
-const userSchema = new mongoose.Schema({
-  username: {
-    type: "string",
-    required: true,
-  },
-  email: {
-    type: "string",
-    required: true,
-  }
-});
-
-const userModel = mongoose.model('userModel', userSchema);
-
-async function main() {
-  await mongoose.connect("mongodb+srv://admin:K8qttauiCQuXfvOh@restaurant.jtwzz56.mongodb.net/Restuarentdb?retryWrites=true&w=majority");
-
-  console.log("Mongoose Connected");
-
-  try {
-    let data = await userModel.find();
-    console.log(data);
-
-  } catch (error) {
-    console.log(error.message);
-  }
-}
 
 
 
@@ -65,7 +34,17 @@ app.get('/admin', authUser, authRole, (req, res) => {
 // load routers
 app.use('/api/user', userRouter)
 
-// listening the port
-app.listen(5000, () => {
-  console.log(`Server is running on http://localhost:5000`)
-})
+// listening the port after connect the mongoose
+mongoose
+  .connect("mongodb+srv://admin:K8qttauiCQuXfvOh@restaurant.jtwzz56.mongodb.net/Restuarentdb?retryWrites=true&w=majority")
+  .then(() => {
+    console.log('Mongoose Connected\n');
+    app.listen(5000, () => {
+      console.log(`Server is running on http://localhost:5000`)
+    })
+  })
+  .catch(err => {
+    console.log(err)
+  });
+
+

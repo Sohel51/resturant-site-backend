@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+const userModel = require('../model/userModel')
 
 let users = [
     {
@@ -16,20 +17,21 @@ let users = [
 ]
 
 // Create User Using HTTP
-function createUser(req, res, next) {
+async function createUser(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
     const {
-        name, email, phone, password
+        username, email, phone, password
     } = req.body;
-    users.push({
-        name, email, phone, password
-    })
-    res.json(
-        users
+
+    let newUser = await new userModel({
+        username, email, phone, password
+    }).save();
+    res.status(201).json(
+        newUser
     )
 }
 
@@ -50,8 +52,9 @@ function registerUser(req, res, next) {
 }
 
 // Read User Data
-function allUser(req, res, next) {
-    res.json(users)
+async function allUser(req, res, next) {
+    let dbUsers = await userModel.find().exec();
+    res.json(dbUsers).status(200);
 }
 
 // Get Users Data
